@@ -17,6 +17,7 @@ namespace Demo.OutputRendering.CommandUI
 
             var templateId = new Guid("29e30783-e23e-4fa8-b513-2248feb8b6e4");
             var context = new Context {TemplateId = templateId};
+
             pipeline.Execute(context);
         }
     }
