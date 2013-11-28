@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using iTextSharp.text;
-using iTextSharp.text.html.simpleparser;
+using iTextSharp.tool.xml;
 using iTextSharp.text.pdf;
 
 namespace Demo.OutputRendering.CommandUI
@@ -16,14 +16,10 @@ namespace Demo.OutputRendering.CommandUI
             {
                 using (var document = new Document(PageSize.A4, 50, 50, 25, 25))
                 {
-                    PdfWriter.GetInstance(document, output);
+                    var writer = PdfWriter.GetInstance(document, output);
                     document.Open();
 
-                    var parsedHtmlElements = HTMLWorker.ParseToList(new StringReader(context.Content), null);
-                    foreach (var htmlElement in parsedHtmlElements)
-                    {
-                        document.Add(htmlElement);
-                    }
+                    XMLWorkerHelper.GetInstance().ParseXHtml(writer, document, new StringReader(context.Content));
                 }
             }
 
